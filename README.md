@@ -36,65 +36,60 @@ npm run dev
 
 ---
 
-## 2️⃣ Install and Configure Tailwind CSS in React (Vite)
+## 2️⃣ Install and Configure Tailwind CSS in React (Vite) — New Official Method
 
-### Step 1 — Install Tailwind Dependencies
+### Step 1 — Install Tailwind Vite Plugin
 
 ```bash
-npm install -D tailwindcss postcss autoprefixer
+npm install tailwindcss @tailwindcss/vite
 ```
 
-**Note:**
-
-* `-D` installs the packages as **devDependencies**
+This installs Tailwind along with the official Vite integration plugin.
 
 ---
 
-### Step 2 — Initialize Tailwind Configuration
+### Step 2 — Configure Vite
 
-```bash
-npx tailwindcss init -p
-```
-
-This command generates:
-
-* `tailwind.config.js`
-* `postcss.config.js`
-
----
-
-### Step 3 — Configure Template Paths
-
-Open `tailwind.config.js` and modify the `content` section:
+Open `vite.config.js` and add:
 
 ```js
-content: [
-  "./index.html",
-  "./src/**/*.{js,ts,jsx,tsx}",
-],
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from "@tailwindcss/vite"
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+})
 ```
 
-This ensures Tailwind scans all React component files.
+* `tailwindcss()` is added as a Vite plugin after `react()`.
+* Enables Tailwind processing directly via Vite pipeline.
 
 ---
 
-### Step 4 — Add Tailwind Directives to CSS
+### Step 3 — Add Tailwind Import
 
-Open `src/index.css` and add:
+Open `src/index.css` and add at the top:
 
 ```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 ```
 
-These directives inject Tailwind's base styles, components, and utility classes.
+This loads Tailwind’s utilities and base styles.
 
 ---
 
-### Step 5 — Run the Development Server
+### Step 4 — Start Development Server
 
 ```bash
 npm run dev
 ```
 
+You can now directly use Tailwind utility classes in JSX.
+
+---
+
+**Environment Requirements:**
+
+* Node.js (Recommended: LTS version)
+* npm (comes with Node.js)
